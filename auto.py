@@ -142,7 +142,7 @@ if __name__== '__main__':
     found2dose = False
     while not found2dose:
         sleep(SLEEP_TIME) # Add sleep times if not working.
-        li1 = driver.find_elements_by_xpath('//*[@data-doses="1"]') # Set 1 if you want johnson & Johnson or set 2 for the rest.
+        li1 = driver.find_elements_by_xpath('//*[@data-doses="1"]') # If you want johnson & Johnson, you should remove lines pertaining li2.
         if li1 != []: # If there are vacances in this vaccination center, check for second dose.
             driver.execute_script("arguments[0].click();", li1[BOOK_NUMBER]) # If you set 1, the code below is not needeed
             li2 = try_again_xpath_timer('//*[@data-doses="2"]',SLEEP_TIME)
