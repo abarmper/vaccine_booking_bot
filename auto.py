@@ -153,7 +153,7 @@ if __name__== '__main__':
             try_again(driver.find_element_by_xpath,'//button[@data-bind="click: backToSelect"]').click()
         
         # Dropdown menu (change choice).
-        index+=1 # increment index. Of course this will break when index out of range and the program will hault.
+        index+=1 # increment index. If out of index, we reset the index.
         sleep(SLEEP_TIME)
         try_again(driver.find_element_by_xpath,'//*[@class="k-widget k-dropdown" and @style="width: 250px; flex-grow: 1;"]').click()
         list_item = try_again_xpath_timer(f'//ul[@class="k-list k-reset"]//li[@data-offset-index="{str(index)}"]', SLEEP_TIME)
