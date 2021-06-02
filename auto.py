@@ -70,9 +70,9 @@ else:
     
 
 AMKA = "XXXXXXXXXXXXXX" # add your AMKA inside the quotes
-EPONYMO = "XXXXXXXXXXXXXX" # dd your surname inside the quotes in capital greek letters
-taxisnet_username = "XXXXXXXXXXXXXX" # add your AMKA inside the quotes
-taxisnet_password = "XXXXXXXXXXXXXX" # dd your surname inside the quotes
+EPONYMO = "XXXXXXXXXXXXXX" # add your surname inside the quotes in capital greek letters
+taxisnet_username = "XXXXXXXXXXXXXX" # add your taxisnet_username inside the quotes
+taxisnet_password = "XXXXXXXXXXXXXX" # add your taxisnet_password inside the quotes
 SLEEP_TIME = 2 # Adjust it according to your internet connection speed
 
 
