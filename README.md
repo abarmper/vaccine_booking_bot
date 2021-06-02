@@ -3,7 +3,7 @@ Bot for automatic vaccination booking for emvolio.gov.gr
 
 
 
-'''
+
 This code can be used for automated vaccine booking. If you want to be the first, this is the way!
 Just fill your credentials below and the python program will take care things for you. You just have
 the last word (by accepting the vaccine).
@@ -50,4 +50,4 @@ as they become available, the script will automatically reserve one for you to p
 
 Be sure to change the SLEEP_TIME according to your internet connection. You can test the code before to be sure it's ok.
 SLEEP_TIME of 2 seconds should be ok for urban internet speeds.
-'''
+
