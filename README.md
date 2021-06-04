@@ -26,6 +26,8 @@ REQUIREMENTS:
 python3
 pip3 (google search: "install python 3 and pip")
 selenium (pip3 install selenium)
+geckodriver https://github.com/mozilla/geckodriver )
+Mozilla Firefox
 
 USAGE:
 python3 auto.py
