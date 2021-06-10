@@ -69,11 +69,11 @@ else:
     BEGIN_AT_INDEX = 0
     
 
-AMKA = "XXXXXXXXXXXXXX" # add your AMKA inside the quotes
-EPONYMO = "XXXXXXXXXXXXXX" # add your surname inside the quotes in capital greek letters
-taxisnet_username = "XXXXXXXXXXXXXX" # add your taxisnet_username inside the quotes
-taxisnet_password = "XXXXXXXXXXXXXX" # add your taxisnet_password inside the quotes
-SLEEP_TIME = 2.5 # Adjust it according to your internet connection speed
+AMKA = "XXXXXXXXXX" # add your AMKA inside the quotes
+EPONYMO = "XXXXXXXXXX" # dd your surname inside the quotes in capital greek letters
+taxisnet_username = "XXXXXXXXXX" # add your AMKA inside the quotes
+taxisnet_password = "XXXXXXXXXX" # dd your surname inside the quotes
+SLEEP_TIME = 3 # Adjust it according to your internet connection speed
 
 
 def try_again(f, arg):
@@ -141,11 +141,12 @@ if __name__== '__main__':
     li2 = None
     found2dose = False
     while not found2dose:
-        sleep(SLEEP_TIME) # Add sleep times if not working.
-        li1 = driver.find_elements_by_xpath('//*[@data-doses="1"]') # If you want johnson & Johnson, you should remove lines pertaining li2.
+        #sleep(SLEEP_TIME) # Add sleep times if not working.
+        li1 = driver.find_elements_by_xpath('//*[@data-doses="2"]') # Set 1 if you want johnson & Johnson or set 2 for the rest.
         if li1 != []: # If there are vacances in this vaccination center, check for second dose.
             driver.execute_script("arguments[0].click();", li1[BOOK_NUMBER]) # If you set 1, the code below is not needeed
-            li2 = try_again_xpath_timer('//*[@data-doses="2"]',SLEEP_TIME)
+            sleep(SLEEP_TIME)
+            li2 = driver.find_elements_by_xpath('//*[@data-doses="undefined"]')
             if li2 != None:
                 found2dose = True
                 break
@@ -153,7 +154,7 @@ if __name__== '__main__':
             try_again(driver.find_element_by_xpath,'//button[@data-bind="click: backToSelect"]').click()
         
         # Dropdown menu (change choice).
-        index+=1 # increment index. If out of index, we reset the index.
+        index+=1 # increment index. Of course this will break when index out of range and the program will hault.
         sleep(SLEEP_TIME)
         try_again(driver.find_element_by_xpath,'//*[@class="k-widget k-dropdown" and @style="width: 250px; flex-grow: 1;"]').click()
         list_item = try_again_xpath_timer(f'//ul[@class="k-list k-reset"]//li[@data-offset-index="{str(index)}"]', SLEEP_TIME)
