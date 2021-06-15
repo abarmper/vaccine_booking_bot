@@ -56,6 +56,10 @@ import sys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
+from random import seed
+from random import randint
+
+seed(43)
 
 if len(sys.argv) > 1:
     BOOK_NUMBER = int(sys.argv[1])
@@ -69,10 +73,10 @@ else:
     BEGIN_AT_INDEX = 0
     
 
-AMKA = "XXXXXXXXXX" # add your AMKA inside the quotes
-EPONYMO = "XXXXXXXXXX" # dd your surname inside the quotes in capital greek letters
-taxisnet_username = "XXXXXXXXXX" # add your AMKA inside the quotes
-taxisnet_password = "XXXXXXXXXX" # dd your surname inside the quotes
+AMKA = "XXXXXXXXXXXXXX" # add your AMKA inside the quotes
+EPONYMO = "XXXXXXXXXXXXXX" # dd your surname inside the quotes in capital greek letters
+taxisnet_username = "XXXXXXXXXXXXXX" # add your AMKA inside the quotes
+taxisnet_password = "XXXXXXXXXXXXXX" # dd your surname inside the quotes
 SLEEP_TIME = 3 # Adjust it according to your internet connection speed
 
 
@@ -103,18 +107,23 @@ if __name__== '__main__':
     # Open the website.
     driver.get('https://emvolio.gov.gr/eligibility')
     sleep(SLEEP_TIME)
-    # Scroll to the bottom.
-    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);") 
-    # Find and fill AMKA form.
-    AMKA_form = try_again(driver.find_element_by_xpath,'//input[@id="edit-amka"]')
-    AMKA_form.send_keys(AMKA)
-    try_again(driver.find_element_by_xpath,'//input[@id="edit-validation-method-lastname"]').click()
-    EPONIMO_form = try_again(driver.find_element_by_xpath,'//*[@id="edit-value2"]')
-    EPONIMO_form.send_keys(EPONYMO)
-    driver.find_element_by_xpath('//button[@id="submit-form"]').click()
-
-    # Next page.
-    try_again(driver.find_element_by_xpath,'//a[@class="btn btn-success"]').click()
+    while (True):
+        # Scroll to the bottom.
+        driver.execute_script("window.scrollTo(0, document.body.scrollHeight);") 
+        # Find and fill AMKA form.
+        AMKA_form = try_again(driver.find_element_by_xpath,'//input[@id="edit-amka"]')
+        AMKA_form.send_keys(AMKA)
+        try_again(driver.find_element_by_xpath,'//input[@id="edit-validation-method-lastname"]').click()
+        EPONIMO_form = try_again(driver.find_element_by_xpath,'//*[@id="edit-value2"]')
+        EPONIMO_form.send_keys(EPONYMO)
+        driver.find_element_by_xpath('//button[@id="submit-form"]').click()
+        if driver.find_elements_by_xpath('//a[@class="btn btn-success"]') != []:
+            # Next page.
+            try_again(driver.find_element_by_xpath,'//a[@class="btn btn-success"]').click()
+            break
+        else:
+            sleep(SLEEP_TIME+randint(1,4))
+            driver.find_element_by_link_text("νέα αναζήτηση εδώ").click()
 
     # Taxis net authentication page.
     #sleep(SLEEP_TIME)
@@ -155,7 +164,7 @@ if __name__== '__main__':
         
         # Dropdown menu (change choice).
         index+=1 # increment index. Of course this will break when index out of range and the program will hault.
-        sleep(SLEEP_TIME)
+        sleep( randint(SLEEP_TIME,SLEEP_TIME+1))
         try_again(driver.find_element_by_xpath,'//*[@class="k-widget k-dropdown" and @style="width: 250px; flex-grow: 1;"]').click()
         list_item = try_again_xpath_timer(f'//ul[@class="k-list k-reset"]//li[@data-offset-index="{str(index)}"]', SLEEP_TIME)
         if list_item != None:
